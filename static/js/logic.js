@@ -125,24 +125,26 @@ function createMap(earthquakes) {
     }).addTo(myMap);
 
     // Set up the legend.
-    let legend = L.control({ position: "bottomright"});
+    var legend = L.control({ position: "bottomright"});
     legend.onAdd = function() {
         var div = L.DomUtil.create("div", "info legend");
-        let magnitudeColor = [0, 1, 2, 3, 4, 5, 6]
-        let colorlabel = ["green", "lightgreen", "lightsalmon", "orange", "tomato", "red"]
+        var magnitudeColor = [0, 1, 2, 3, 4, 5];
+        let depthRange = ["-10 - 10", "10 - 30", "30 - 50", "50 - 70", "70 - 90", "90+"];
+        var colorlabel = ["green", "lightgreen", "lightsalmon", "orange", "tomato", "red"]
         var labels = [];
 
         // Add the minimum and maximum.
-        let legendInfo = "<h1>Earthquake Depth Color</h1>" +
-        "<div class=\"labels\">" +
-            "<div class=\"min\">" + magnitudeColor[0] + "</div>" +
-            "<div class=\"max\">" + magnitudeColor[magnitudeColor.length - 1] + "</div>" +
-        "</div>";
+        var legendInfo = "<h4>Earthquake<br>Depth Color</h4>";
+        // "<div class=\"labels\">" +
+        //     "<div class=\"min\">" + magnitudeColor[0] + "</div>" +
+        //     "<div class=\"max\">" + magnitudeColor[magnitudeColor.length - 1] + "</div>" +
+        // "</div>";
 
         div.innerHTML = legendInfo;
 
-        limits.forEach(function(limit, index) {
-            labels.push("<li style=\"background-color: " + colorlabel[index] + "\"></li>");
+        magnitudeColor.forEach(function(limit, index) {
+            // labels.push("<li class = \"max\" style=\"background-color: " + colorlabel[index] + "\"> </li> <li class = \"min\">" + depthRange[index] + "</li>");
+            labels.push("<li class = \"min\">" + depthRange[index] + "</li> <li class = \"max\" style=\"background-color: " + colorlabel[index] + "\"> </li>");
         });
 
         div.innerHTML += "<ul>" + labels.join("") + "</ul>";
